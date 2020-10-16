@@ -5,11 +5,9 @@
     "lib": [],
     "declaration": false,
     "noImplicitAny": false,
-    "removeComments": true,
     "inlineSourceMap": true,
-    "moduleResolution": "node"
   },
   "include": [
-    "testing/**/*.ts"
+    "test/**/*.ts"
   ]
 }
