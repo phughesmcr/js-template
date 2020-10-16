@@ -2,6 +2,7 @@
   "deno.enable": false,
   "cSpell.words": [
     "ESNEXT",
+    "devtool",
     "downlevel",
     "sourcemap",
     "tslib",
