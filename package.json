@@ -34,7 +34,7 @@
     "fix": "eslint --fix",
     "lint": "eslint",
     "test": "tsc -p tsconfig.json && ts-mocha -p tsconfig.testing.json -r ts-node/register -r esm 'test/**/*.ts'",
-    "pack": "webpack"
+    "pack": "webpack --config ./webpack.config.js"
   },
   "repository": {
     "type": "git",
