@@ -1,3 +1,11 @@
 {
-  "deno.enable": false
+  "deno.enable": false,
+  "cSpell.words": [
+    "ESNEXT",
+    "downlevel",
+    "sourcemap",
+    "tslib",
+    "typechecking",
+    "typedoc"
+  ]
 }
