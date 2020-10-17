@@ -1,18 +1,23 @@
 {
   "root": true,
-  "extends": [
-    "eslint:recommended"
-  ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2015,
-    "sourceType": "module"
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
   },
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended"
+  ],
   "env": {
     "node": true,
     "es6": true,
-    "browser": false
+    "browser": true
   },
-  "globals": {},
   "rules": {
     "semi": [2, "always"],
     "no-multi-spaces": 1,

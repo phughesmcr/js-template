@@ -2,8 +2,10 @@
   "deno.enable": false,
   "cSpell.words": [
     "ESNEXT",
+    "corejs",
     "devtool",
     "downlevel",
+    "esmodules",
     "sourcemap",
     "tslib",
     "typechecking",
