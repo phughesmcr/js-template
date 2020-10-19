@@ -5,7 +5,7 @@ module.exports = function (api) {
       [
           "@babel/preset-env",
           {
-              "corejs": 3,
+              "corejs": "3.6",
               "useBuiltIns": "usage",
               "targets": "> 0.5%, last 2 versions, Firefox ESR, not dead, not IE",
               "modules": false,
