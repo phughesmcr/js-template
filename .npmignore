@@ -10,8 +10,8 @@ docs
 .gitattributes
 .gitignore
 .mocharc.json
-babel.config.js
+babel.config.json
 jsconfig.json
+rollup.config.js
 tsconfig.json
 tsconfig.testing.json
-webpack.config.js

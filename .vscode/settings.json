@@ -6,7 +6,10 @@
     "devtool",
     "downlevel",
     "esmodules",
+    "iife",
+    "jstemplate",
     "sourcemap",
+    "treeshake",
     "tslib",
     "typechecking",
     "typedoc"
