@@ -3,4 +3,5 @@ dist/
 docs/
 node_modules/
 test/
+babel.config.js
 webpack.config.js
