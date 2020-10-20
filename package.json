@@ -10,10 +10,6 @@
     "test": "test"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.3",
-    "@babel/plugin-transform-runtime": "^7.12.1",
-    "@babel/preset-env": "^7.12.1",
-    "@babel/preset-typescript": "^7.12.1",
     "@types/chai": "^4.2.12",
     "@types/mocha": "^8.0.3",
     "@types/node": "^14.10.1",
@@ -35,7 +31,6 @@
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "test": "tsc -p tsconfig.json && ts-mocha -p tsconfig.testing.json -r ts-node/register -r esm 'test/**/*.ts'",
-    "pack": "webpack --config webpack.config.js",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check --watch"
   },
