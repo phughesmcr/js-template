@@ -1,24 +1,18 @@
 module.exports = function (api) {
-  api.cache(false);
+  api.cache(true);
   const presets = [
-      [ "@babel/preset-typescript"],
-      [
-          "@babel/preset-env",
-          {
-              "corejs": "3.6",
-              "useBuiltIns": "usage",
-              "targets": "> 0.5%, last 2 versions, Firefox ESR, not dead, not IE",
-              "modules": false,
-              "bugfixes": true
-          }
-      ]
-  ];
-  const plugins = [
     [
-      "@babel/transform-runtime",
-      { corejs: 3 },
-    ]
+      "@babel/preset-env",
+      {
+        "corejs": "3.6",
+        "useBuiltIns": "entry",
+        "modules": false,
+        "bugfixes": true
+      }
+    ],
+    "@babel/preset-typescript",
   ];
+  const plugins = [];
   return {
       presets,
       plugins
