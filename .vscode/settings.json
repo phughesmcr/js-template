@@ -7,6 +7,7 @@
     "downlevel",
     "esmodules",
     "iife",
+    "jsnext",
     "jstemplate",
     "sourcemap",
     "treeshake",
