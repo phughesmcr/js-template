@@ -5,8 +5,10 @@
   "main": "dist/index.umd.js",
   "module": "dist/index.mjs",
   "browser": "dist/index.iife.js",
-  "types": "build/types/index.d.ts",
+  "jsnext": "build/index.js",
+  "types": "dist/index.d.ts",
   "type": "module",
+  "sideEffects": false,
   "directories": {
     "dist": "dist",
     "doc": "docs",
@@ -30,7 +32,10 @@
     "eslint": "^7.10.0",
     "esm": "^3.2.25",
     "mocha": "^8.1.3",
+    "rimraf": "^3.0.2",
     "rollup": "^2.32.0",
+    "rollup-plugin-dts": "^1.4.13",
+    "rollup-plugin-typescript2": "^0.28.0",
     "ts-mocha": "^7.0.0",
     "ts-node": "^9.0.0",
     "tslib": "^2.0.3",
@@ -38,7 +43,8 @@
     "typescript": "^4.0.3"
   },
   "scripts": {
-    "build": "tsc && rollup -c rollup.config.js",
+    "build": "npm run clean && tsc --emitDeclarationOnly --declaration --declarationDir types && rollup -c rollup.config.js",
+    "clean": "rimraf build && rimraf dist && rimraf types",
     "docs": "typedoc --out docs ",
     "lint": "eslint",
     "lint:fix": "eslint --fix",

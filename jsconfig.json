@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "es2020",
+    "module": "esNext",
     "target": "es2020",
     "strict": true,
     "baseUrl": "."
@@ -10,6 +10,8 @@
     "dist",
     "docs",
     "node_modules",
-    "test"
+    "test",
+    "types",
+    "rollup.config.js",
   ]
 }

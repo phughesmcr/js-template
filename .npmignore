@@ -1,8 +1,8 @@
-.vscode
-src
-test
-docs
-
+.vscode/
+src/
+test/
+docs/
+types/
 .browserlistrc
 .editorconfig
 .eslintignore
