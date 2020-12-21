@@ -1,15 +1,26 @@
-import commonjs from '@rollup/plugin-commonjs';
-import resolve from '@rollup/plugin-node-resolve';
-import babel from '@rollup/plugin-babel';
-import dts from "rollup-plugin-dts";
-import typescript from 'rollup-plugin-typescript2';
-import pkg from './package.json';
+"use strict";
 
-const extensions = [
-  '.js', '.jsx', '.ts', '.tsx',
-];
+import babel from '@rollup/plugin-babel';
+import commonjs from '@rollup/plugin-commonjs';
+import dts from "rollup-plugin-dts";
+import fs from 'fs';
+import pkg from './package.json';
+import resolve from '@rollup/plugin-node-resolve';
+import typescript from 'rollup-plugin-typescript2';
+import { DEFAULT_EXTENSIONS } from '@babel/core';
+import { terser } from "rollup-plugin-terser";
 
 const name = pkg.name;
+const license = fs.readFileSync('./LICENSE', 'utf-8').split(/\r?\n/g).reduce((str, line) => str += ` * ${line}\n`, '');
+const extensions = ['.js', '.jsx', '.mjs', '.ts', '.tsx'];
+
+const bannerStr =
+`/*! *****************************************************************************
+ *
+ * ${name}
+ * v${pkg.version}
+ *
+${license}***************************************************************************** */\n`;
 
 export default [
   {
@@ -39,12 +50,19 @@ export default [
       file: pkg.jsnext,
       format: "es",
       sourcemap: true,
+      banner: bannerStr,
     },
   },
   {
     input: "./types/index.d.ts",
-    output: [{ file: "./build/index.d.ts", format: "es" }],
-    plugins: [dts()],
+    output: [{
+      banner: bannerStr,
+      file: "./build/index.d.ts",
+      format: "es",
+    }],
+    plugins: [
+      dts(),
+    ],
   },
   {
     input: './src/index.ts',
@@ -61,7 +79,11 @@ export default [
       commonjs({ include: 'node_modules/**' }),
 
       babel({
-        extensions,
+        extensions: [
+          ...DEFAULT_EXTENSIONS,
+          '.ts',
+          '.tsx'
+        ],
         babelHelpers: 'bundled',
         include: ["src/**/*"],
         exclude: ["node_modules/**"],
@@ -69,26 +91,42 @@ export default [
     ],
 
     output: [{
+      banner: bannerStr,
       file: pkg.main,
       format: 'umd',
       name,
-      sourcemap: 'inline'
+      sourcemap: 'inline',
+      plugins: [
+        terser(),
+      ],
     }, {
+      banner: bannerStr,
       file: pkg.module,
       format: 'es',
       sourcemap: 'inline',
+      plugins: [
+        terser(),
+      ],
     }, {
+      banner: bannerStr,
       file: pkg.browser,
       format: 'iife',
       name,
       sourcemap: 'inline',
-
+      plugins: [
+        terser(),
+      ],
       globals: {},
     }],
   },
   {
-    input: "build/index.d.ts",
-    output: [{ file: pkg.types, format: "es" }],
-    plugins: [dts()],
+    input: "./build/index.d.ts",
+    output: [{
+      file: pkg.types,
+      format: "es"
+    }],
+    plugins: [
+      dts(),
+    ],
   },
 ];
