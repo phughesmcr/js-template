@@ -45,20 +45,15 @@
     "prebuild": "npm run clean:pre && npm run lint:fix",
     "build": "npm run build:types && rollup -c rollup.config.js",
     "postbuild": "npm run clean:post",
-
     "build:docs": "typedoc --out docs",
     "build:types": "tsc --emitDeclarationOnly --declaration --declarationDir types",
-
     "clean": "npm run clean:pre && npm run clean:post && npm run clean:docs",
     "clean:docs": "rimraf docs",
     "clean:pre": "rimraf build && rimraf dist && rimraf types",
     "clean:post": "rimraf types",
-
     "lint": "eslint 'src/**/*.ts'",
     "lint:fix": "eslint --fix 'src/**/*.ts'",
-
     "test": "tsc -p tsconfig.json && ts-mocha -p tsconfig.testing.json -r ts-node/register -r esm 'test/**/*.ts'",
-
     "check:types": "tsc --noEmit"
   },
   "repository": {
@@ -75,5 +70,8 @@
   "bugs": {
     "url": ""
   },
-  "homepage": ""
+  "homepage": "",
+  "dependencies": {
+    "core-js": "^3.8.1"
+  }
 }
