@@ -10,68 +10,75 @@ import typescript from 'rollup-plugin-typescript2';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
 import { terser } from "rollup-plugin-terser";
 
-const name = pkg.name;
 const license = fs.readFileSync('./LICENSE', 'utf-8').split(/\r?\n/g).reduce((str, line) => str += ` * ${line}\n`, '');
-const extensions = ['.js', '.jsx', '.mjs', '.ts', '.tsx'];
 
-const bannerStr =
+const pkgName = pkg.name;
+const pkgVersion = pkg.version;
+const extensions = [...DEFAULT_EXTENSIONS, '.ts', '.tsx'];
+
+// https://rollupjs.org/guide/en#external-e-external
+const external = [];
+const globals = {};
+
+const bannerText =
 `/*! *****************************************************************************
  *
- * ${name}
- * v${pkg.version}
+ * ${pkgName}
+ * v${pkgVersion}
  *
 ${license}***************************************************************************** */\n`;
 
-export default [
-  {
-    input: './src/index.ts',
+const input = './src/index.ts';
 
-    // https://rollupjs.org/guide/en#external-e-external
-    external: [],
+export default [
+  // ESNEXT MODULE (i.e. pkg.module)
+  {
+    input,
+
+    external,
 
     plugins: [
       // Allows node_modules resolution
-      resolve({ extensions }),
+      resolve({
+        extensions,
+        mainFields: ['jsnext:main, module, main'],
+      }),
 
       // Allow bundling cjs modules. Rollup doesn't understand cjs
-      commonjs({ include: 'node_modules/**' }),
+      commonjs({
+        include: 'node_modules/**',
+        transformMixedEsModules: true,
+       }),
 
       // Compile TypeScript/JavaScript files
       typescript({
-        include: [ "*.ts+(|x)", "**/*.ts+(|x)", "*.js+(|x)", "**/*.js+(|x)" ],
-        exclude: [ "node_modules" ],
         clean: true,
+        exclude: [ "node_modules", "*.d.ts", "**/*.d.ts" ],
+        include: [ "*.ts+(|x)", "**/*.ts+(|x)", "*.m?js+(|x)", "**/*.m?js+(|x)" ],
+        tsconfig: "tsconfig.json",
+        tslib: require('tslib'),
         typescript: require("typescript"),
-        tslib: require('tslib')
       }),
+
+      terser(),
     ],
 
     output: {
-      file: pkg.jsnext,
+      banner: bannerText,
+      esModule: true,
+      exports: 'named',
+      file: pkg.module,
       format: "es",
       sourcemap: true,
-      banner: bannerStr,
+      globals,
     },
   },
-  {
-    input: "./types/index.d.ts",
-    output: [{
-      banner: bannerStr,
-      file: "./build/index.d.ts",
-      format: "es",
-    }],
-    plugins: [
-      dts(),
-    ],
-  },
-  {
-    input: './src/index.ts',
 
-    external: [],
+  // UMD
+  {
+    input,
 
-    treeshake: {
-      moduleSideEffects: false,
-    },
+    external,
 
     plugins: [
       resolve({ extensions }),
@@ -79,52 +86,88 @@ export default [
       commonjs({ include: 'node_modules/**' }),
 
       babel({
-        extensions: [
-          ...DEFAULT_EXTENSIONS,
-          '.ts',
-          '.tsx'
-        ],
+        extensions,
         babelHelpers: 'bundled',
         include: ["src/**/*"],
-        exclude: ["node_modules/**"],
+        exclude: ["node_modules/**/*"],
       }),
+
+      terser(),
     ],
 
     output: [{
-      banner: bannerStr,
+      banner: bannerText,
+      esModule: false,
+      exports: 'named',
       file: pkg.main,
       format: 'umd',
-      name,
-      sourcemap: 'inline',
-      plugins: [
-        terser(),
-      ],
-    }, {
-      banner: bannerStr,
-      file: pkg.module,
-      format: 'es',
-      sourcemap: 'inline',
-      plugins: [
-        terser(),
-      ],
-    }, {
-      banner: bannerStr,
+      name: pkgName,
+      sourcemap: true,
+      globals,
+    }]
+  },
+
+  // BROWSER IIFE
+  {
+    input,
+
+    external,
+
+    plugins: [
+      resolve({
+        extensions,
+        browser: true,
+      }),
+
+      commonjs({
+        include: 'node_modules/**',
+        transformMixedEsModules: true,
+      }),
+
+      babel({
+        extensions,
+        babelHelpers: 'bundled',
+        include: ["src/**/*"],
+        exclude: ["node_modules/**/*"],
+      }),
+
+      terser(),
+    ],
+
+    output: [{
+      banner: bannerText,
+      exports: 'named',
       file: pkg.browser,
       format: 'iife',
-      name,
-      sourcemap: 'inline',
-      plugins: [
-        terser(),
-      ],
-      globals: {},
+      name: pkgName,
+      sourcemap: true,
+      globals,
     }],
   },
+
+  // TYPESCRIPT DECLARATIONS
   {
-    input: "./build/index.d.ts",
-    output: [{
-      file: pkg.types,
-      format: "es"
-    }],
+    input: "./types/index.d.ts",
+    output: [
+      // UMD
+      {
+        banner: bannerText,
+        file: pkg.types,
+        format: "es"
+      },
+      // Browser
+      {
+        banner: bannerText,
+        file: "./dist/browser/index.min.d.ts",
+        format: "es"
+      },
+      // Module
+      {
+        banner: bannerText,
+        file: "./dist/module/index.min.d.ts",
+        format: "es"
+      },
+    ],
     plugins: [
       dts(),
     ],
