@@ -1,11 +1,11 @@
 {
-  "name": "",
+  "name": "js_template",
   "version": "0.1.0",
   "description": "",
-  "main": "dist/umd/index.min.js",
-  "module": "dist/module/index.min.js",
-  "browser": "dist/browser/index.min.js",
-  "types": "dist/umd/index.d.ts",
+  "main": "dist/cjs/index.min.js",
+  "module": "dist/esm/index.min.js",
+  "browser": "dist/iife/index.min.js",
+  "types": "dist/cjs/index.d.ts",
   "type": "module",
   "directories": {
     "dist": "dist",
@@ -54,7 +54,9 @@
     "lint": "eslint 'src/**/*.ts'",
     "lint:fix": "eslint --fix 'src/**/*.ts'",
     "test": "tsc -p tsconfig.json && ts-mocha -p tsconfig.testing.json -r ts-node/register -r esm 'test/**/*.ts'",
-    "check:types": "tsc --noEmit"
+    "check:types": "tsc --noEmit",
+    "check:es5": "npx es-check es5 ./dist/iife/*.js --verbose",
+    "check:es3": "npx es-check es3 ./dist/iife/*.js --verbose"
   },
   "repository": {
     "type": "git",

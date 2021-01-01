@@ -31,7 +31,7 @@ ${license}**********************************************************************
 const input = './src/index.ts';
 
 export default [
-  // ESNEXT MODULE (i.e. pkg.module)
+  // ESM
   {
     input,
 
@@ -79,6 +79,47 @@ export default [
     },
   },
 
+  // CJS
+  {
+    input,
+
+    external,
+
+    plugins: [
+      // Allows node_modules resolution
+      resolve({ extensions }),
+
+      // Allow bundling cjs modules. Rollup doesn't understand cjs
+      commonjs({ include: 'node_modules/**' }),
+
+      // Compile TypeScript/JavaScript files
+      typescript({
+        clean: true,
+        exclude: [ "node_modules", "*.d.ts", "**/*.d.ts" ],
+        include: [ "*.ts+(|x)", "**/*.ts+(|x)", "*.m?js+(|x)", "**/*.m?js+(|x)" ],
+        tsconfig: "tsconfig.json",
+        module: "cjs",
+        tslib: require('tslib'),
+        typescript: require("typescript"),
+      }),
+
+      terser({
+        keep_classnames: true,
+        keep_fnames: true,
+      }),
+    ],
+
+    output: {
+      banner: bannerText,
+      esModule: false,
+      exports: 'named',
+      file: pkg.main,
+      format: 'cjs',
+      sourcemap: true,
+      globals,
+    },
+  },
+
   // UMD
   {
     input,
@@ -97,18 +138,14 @@ export default [
         exclude: ["node_modules/**/*"],
       }),
 
-      terser({
-        module: false,
-        keep_classnames: true,
-        keep_fnames: true,
-      }),
+      terser(),
     ],
 
     output: [{
       banner: bannerText,
       esModule: false,
       exports: 'named',
-      file: pkg.main,
+      file: "./dist/umd/index.min.js",
       format: 'umd',
       name: pkgName,
       sourcemap: true,
@@ -163,22 +200,28 @@ export default [
   {
     input: "./types/index.d.ts",
     output: [
-      // UMD
+      // CJS
       {
         banner: bannerText,
         file: pkg.types,
         format: "es"
       },
+      // UMD
+      {
+        banner: bannerText,
+        file: "./dist/umd/index.min.d.ts",
+        format: "es"
+      },
       // Browser
       {
         banner: bannerText,
-        file: "./dist/browser/index.min.d.ts",
+        file: "./dist/iife/index.min.d.ts",
         format: "es"
       },
       // Module
       {
         banner: bannerText,
-        file: "./dist/module/index.min.d.ts",
+        file: "./dist/esm/index.min.d.ts",
         format: "es"
       },
     ],
