@@ -149,6 +149,7 @@ export default [
 
     output: [{
       banner: bannerText,
+      esModule: false,
       exports: 'named',
       file: pkg.browser,
       format: 'iife',
