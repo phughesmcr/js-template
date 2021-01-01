@@ -21,6 +21,7 @@
   },
   "rules": {
     "semi": [2, "always"],
+    "no-default-export": true,
     "no-multi-spaces": 1,
     "max-len": ["error", 120, 2, {
       "ignoreUrls": true,
