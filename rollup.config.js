@@ -60,7 +60,12 @@ export default [
         typescript: require("typescript"),
       }),
 
-      terser(),
+      terser({
+        ecma: 2021,
+        module: true,
+        keep_classnames: true,
+        keep_fnames: true,
+      }),
     ],
 
     output: {
@@ -92,7 +97,11 @@ export default [
         exclude: ["node_modules/**/*"],
       }),
 
-      terser(),
+      terser({
+        module: false,
+        keep_classnames: true,
+        keep_fnames: true,
+      }),
     ],
 
     output: [{
@@ -131,7 +140,11 @@ export default [
         exclude: ["node_modules/**/*"],
       }),
 
-      terser(),
+      terser({
+        module: false,
+        keep_classnames: true,
+        keep_fnames: true,
+      }),
     ],
 
     output: [{
