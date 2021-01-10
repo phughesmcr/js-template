@@ -17,7 +17,10 @@ const pkgVersion = pkg.version;
 const extensions = [...DEFAULT_EXTENSIONS, '.ts', '.tsx'];
 
 // https://rollupjs.org/guide/en#external-e-external
-const external = [];
+const external = [
+  ...Object.keys(pkg.dependencies || {}),
+  ...Object.keys(pkg.peerDependencies || {}),
+];
 const globals = {};
 
 const bannerText =
