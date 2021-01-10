@@ -1,6 +1,7 @@
 {
   "presets": [
     ["@babel/preset-env", {
+      "targets": "defaults, not ie <= 11",
       "bugfixes": true,
       "shippedProposals": true,
       "corejs": {
