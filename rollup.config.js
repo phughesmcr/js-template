@@ -12,7 +12,7 @@ import { terser } from "rollup-plugin-terser";
 
 const license = fs.readFileSync('./LICENSE', 'utf-8').split(/\r?\n/g).reduce((str, line) => str += ` * ${line}\n`, '');
 
-const pkgName = pkg.name;
+const pkgName = pkg.name.split('/').pop().replace(/-/g, '');
 const pkgVersion = pkg.version;
 const extensions = [...DEFAULT_EXTENSIONS, '.ts', '.tsx'];
 
