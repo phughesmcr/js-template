@@ -4,8 +4,8 @@ import babel from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import dts from "rollup-plugin-dts";
 import fs from 'fs';
-import pkg from './package.json';
-import resolve from '@rollup/plugin-node-resolve';
+import * as pkg from './package.json';
+import {nodeResolve} from '@rollup/plugin-node-resolve';
 import typescript from 'rollup-plugin-typescript2';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
 import { terser } from "rollup-plugin-terser";
@@ -42,9 +42,9 @@ export default [
 
     plugins: [
       // Allows node_modules resolution
-      resolve({
+      nodeResolve({
         extensions,
-        mainFields: ['jsnext:main, module, main'],
+        mainFields: ['jsnext:main'],
       }),
 
       // Allow bundling cjs modules. Rollup doesn't understand cjs
@@ -90,10 +90,16 @@ export default [
 
     plugins: [
       // Allows node_modules resolution
-      resolve({ extensions }),
+      nodeResolve({
+        extensions,
+        mainFields: ['main'],
+      }),
 
       // Allow bundling cjs modules. Rollup doesn't understand cjs
-      commonjs({ include: 'node_modules/**' }),
+      commonjs({
+        include: 'node_modules/**',
+        transformMixedEsModules: true,
+      }),
 
       // Compile TypeScript/JavaScript files
       typescript({
@@ -130,7 +136,7 @@ export default [
     external,
 
     plugins: [
-      resolve({ extensions }),
+      nodeResolve({ extensions }),
 
       commonjs({ include: 'node_modules/**' }),
 
@@ -163,7 +169,7 @@ export default [
     external,
 
     plugins: [
-      resolve({
+      nodeResolve({
         extensions,
         browser: true,
       }),
