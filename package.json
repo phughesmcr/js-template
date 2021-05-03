@@ -13,33 +13,33 @@
     "test": "test"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.0",
-    "@babel/core": "^7.13.8",
+    "@babel/cli": "^7.13.16",
+    "@babel/core": "^7.14.0",
     "@babel/plugin-proposal-class-properties": "^7.13.0",
-    "@babel/preset-env": "^7.13.9",
+    "@babel/preset-env": "^7.14.0",
     "@babel/preset-typescript": "^7.13.0",
     "@rollup/plugin-babel": "^5.3.0",
-    "@rollup/plugin-commonjs": "^17.1.0",
-    "@rollup/plugin-node-resolve": "^11.2.0",
-    "@types/chai": "^4.2.15",
-    "@types/mocha": "^8.2.1",
-    "@types/node": "^14.14.31",
-    "@typescript-eslint/eslint-plugin": "^4.16.1",
-    "@typescript-eslint/parser": "^4.16.1",
-    "chai": "^4.3.1",
-    "eslint": "^7.21.0",
+    "@rollup/plugin-commonjs": "^18.0.0",
+    "@rollup/plugin-node-resolve": "^11.2.1",
+    "@types/chai": "^4.2.17",
+    "@types/mocha": "^8.2.2",
+    "@types/node": "^15.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "chai": "^4.3.4",
+    "eslint": "^7.25.0",
     "esm": "^3.2.25",
-    "mocha": "^8.3.0",
+    "mocha": "^8.3.2",
     "rimraf": "^3.0.2",
-    "rollup": "^2.40.0",
-    "rollup-plugin-dts": "^2.0.1",
+    "rollup": "^2.46.0",
+    "rollup-plugin-dts": "^3.0.1",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.30.0",
     "ts-mocha": "^8.0.0",
     "ts-node": "^9.1.1",
-    "tslib": "^2.1.0",
-    "typedoc": "^0.20.28",
-    "typescript": "^4.1.5"
+    "tslib": "^2.2.0",
+    "typedoc": "^0.20.36",
+    "typescript": "^4.2.4"
   },
   "scripts": {
     "prebuild": "npm run clean:pre && npm run lint:fix",
@@ -51,9 +51,9 @@
     "clean:docs": "rimraf docs",
     "clean:pre": "rimraf build && rimraf dist && rimraf types",
     "clean:post": "rimraf types",
-    "lint": "eslint 'src/**/*.ts'",
-    "lint:fix": "eslint --fix 'src/**/*.ts'",
-    "test": "tsc -p tsconfig.json && ts-mocha -p tsconfig.testing.json -r ts-node/register -r esm 'test/**/*.ts'",
+    "lint": "eslint \"src/**/*.ts\"",
+    "lint:fix": "eslint --fix \"src/**/*.ts\"",
+    "test": "tsc -p tsconfig.json && ts-mocha -p tsconfig.testing.json -r ts-node/register -r esm \"test/**/*.ts\"",
     "check:types": "tsc --noEmit",
     "check:es5": "npx es-check es5 ./dist/iife/*.js --verbose",
     "check:es3": "npx es-check es3 ./dist/iife/*.js --verbose"
@@ -74,6 +74,6 @@
   },
   "homepage": "",
   "dependencies": {
-    "core-js": "^3.9.1"
+    "core-js": "^3.11.2"
   }
 }
