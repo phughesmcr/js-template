@@ -1,8 +1,9 @@
 *                 text=auto eol=lf
 
+demo/*            linguist-documentation=true
 dist/*            linguist-generated=true
-src/vendor/*      linguist-generated=true
 docs/*            linguist-documentation=true
+src/vendor/*      linguist-generated=true
 
 *.css             text
 *.htm             text diff=html

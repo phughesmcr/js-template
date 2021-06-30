@@ -1,12 +1,15 @@
 {
   "compilerOptions": {
-    "module": "esNext",
-    "target": "esNext",
+    "module": "es2020",
+    "target": "es2020",
     "strict": true,
     "baseUrl": "."
   },
   "exclude": [
+    ".github",
+    ".vscode",
     "build",
+    "demo",
     "dist",
     "docs",
     "node_modules",

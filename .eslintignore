@@ -1,4 +1,7 @@
+.github/
+.vscode/
 build/
+demo/
 dist/
 docs/
 node_modules/

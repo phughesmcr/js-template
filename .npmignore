@@ -1,4 +1,6 @@
+.github/
 .vscode/
+demo/
 docs/
 src/
 test/
@@ -11,7 +13,10 @@ types/
 .gitignore
 .mocharc.json
 babel.config.json
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
 jsconfig.json
+pull_request_template.md
 rollup.config.js
 tsconfig.json
 tsconfig.testing.json
