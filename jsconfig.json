@@ -16,5 +16,6 @@
     "test",
     "types",
     "rollup.config.js",
+    "rollup.config.dev.js",
   ]
 }
