@@ -11,18 +11,11 @@ import { DEFAULT_EXTENSIONS } from "@babel/core";
 import { terser } from "rollup-plugin-terser";
 
 const license = fs.readFileSync("./LICENSE", "utf-8").split(/\r?\n/g).reduce((str, line) => str += ` * ${line}\n`, "");
-
 const pkgName = pkg.name;
 const pkgVersion = pkg.version;
 const extensions = [...DEFAULT_EXTENSIONS, ".ts", ".tsx"];
-
-// https://rollupjs.org/guide/en#external-e-external
-const external = [
-  ...Object.keys(pkg.dependencies || {}),
-  ...Object.keys(pkg.peerDependencies || {}),
-];
+const external = [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})];
 const globals = {};
-
 const bannerText =
 `/*! *****************************************************************************
  *
@@ -68,10 +61,9 @@ export default [
       }),
 
       terser({
+        safari10: true,
         ecma: 2020,
         module: true,
-        keep_classnames: true,
-        keep_fnames: true,
         compress: true,
         mangle: true,
       }),
@@ -81,7 +73,7 @@ export default [
       banner: bannerText,
       esModule: true,
       exports: "named",
-      file: pkg.module,
+      file: "./dist/ems/index.min.js",
       format: "es",
       sourcemap: true,
       globals,
@@ -97,7 +89,7 @@ export default [
     plugins: [
       nodeResolve({
         extensions,
-        mainFields: ["main", "node"],
+        mainFields: ["node", "main"],
       }),
 
       commonjs({
@@ -131,7 +123,7 @@ export default [
       banner: bannerText,
       esModule: false,
       exports: "named",
-      file: pkg.main,
+      file: "./dist/cjs/index.min.js",
       format: "cjs",
       name: pkgName,
       sourcemap: true,
@@ -139,7 +131,7 @@ export default [
     },
   },
 
-  // UMD
+  // UMD & IIFE
   {
     input,
 
@@ -176,78 +168,37 @@ export default [
       }),
     ],
 
-    output: {
-      banner: bannerText,
-      esModule: false,
-      exports: "named",
-      file: "./dist/umd/index.min.js",
-      format: "umd",
-      name: pkgName,
-      noConflict: true,
-      sourcemap: true,
-      globals,
-    }
+    output: [
+      {
+        banner: bannerText,
+        esModule: false,
+        exports: "named",
+        file: "./dist/umd/index.min.js",
+        format: "umd",
+        name: pkgName,
+        noConflict: true,
+        sourcemap: true,
+        globals,
+      },
+      {
+        banner: bannerText,
+        esModule: false,
+        exports: "named",
+        file: "./dist/iife/index.min.js",
+        format: "iife",
+        name: pkgName,
+        sourcemap: true,
+        globals,
+      }
+    ]
   },
-
-  // BROWSER IIFE
-  {
-    input,
-
-    external,
-
-    plugins: [
-      nodeResolve({
-        extensions,
-        mainFields: ["browser", "main"],
-        browser: true,
-      }),
-
-      commonjs({
-        include: "node_modules/**",
-        transformMixedEsModules: true,
-      }),
-
-      typescript({
-        exclude: [ "node_modules", "*.d.ts", "**/*.d.ts" ],
-        include: [ "*.ts+(|x)", "**/*.ts+(|x)", "*.m?js+(|x)", "**/*.m?js+(|x)" ],
-        tsconfig: "tsconfig.json",
-        tslib: require("tslib"),
-        typescript: require("typescript"),
-      }),
-
-      babel({
-        extensions,
-        babelHelpers: "bundled",
-        include: ["src/**/*"],
-        exclude: ["node_modules/**/*"],
-      }),
-
-      terser({
-        ecma: 2020,
-        compress: true,
-        mangle: true,
-      }),
-    ],
-
-    output: {
-      banner: bannerText,
-      esModule: false,
-      exports: "named",
-      file: pkg.browser,
-      format: "iife",
-      name: pkgName,
-      sourcemap: true,
-      globals,
-    },
-  },
-
   // TYPESCRIPT DECLARATIONS
   {
     input: "./types/index.d.ts",
     output: [
       // CJS
       {
-        file: pkg.types,
+        file: "./dist/cjs/index.min.d.ts",
         format: "es"
       },
       // UMD

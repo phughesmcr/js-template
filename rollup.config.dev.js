@@ -7,9 +7,7 @@ import typescript from "@rollup/plugin-typescript";
 import { DEFAULT_EXTENSIONS } from "@babel/core";
 
 const extensions = [...DEFAULT_EXTENSIONS, ".ts", ".tsx"];
-
-// https://rollupjs.org/guide/en#external-e-external
-const external = [];
+const external = [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})];
 const globals = {};
 
 const input = "./src/index.ts";
