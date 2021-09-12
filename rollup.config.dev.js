@@ -1,10 +1,12 @@
 "use strict";
 
+import babel from "@rollup/plugin-babel";
 import commonjs from "@rollup/plugin-commonjs";
 import dts from "rollup-plugin-dts";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import typescript from "@rollup/plugin-typescript";
 import { DEFAULT_EXTENSIONS } from "@babel/core";
+import * as pkg from "./package.json";
 
 const extensions = [...DEFAULT_EXTENSIONS, ".ts", ".tsx"];
 const external = [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})];
@@ -52,7 +54,7 @@ export default [
     output: {
       esModule: true,
       exports: "named",
-      file: pkg.module,
+      file: "./dist/esm/index.min.js",
       format: "es",
       globals,
     },

@@ -73,7 +73,7 @@ export default [
       banner: bannerText,
       esModule: true,
       exports: "named",
-      file: "./dist/ems/index.min.js",
+      file: "./dist/esm/index.min.js",
       format: "es",
       sourcemap: true,
       globals,
