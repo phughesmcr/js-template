@@ -10,21 +10,21 @@ import typescript from "@rollup/plugin-typescript";
 import { DEFAULT_EXTENSIONS } from "@babel/core";
 import { terser } from "rollup-plugin-terser";
 
-const license = fs.readFileSync("./LICENSE", "utf-8").split(/\r?\n/g).reduce((str, line) => str += ` * ${line}\n`, "");
+const input = "./src/index.ts";
 const pkgName = pkg.name;
-const pkgVersion = pkg.version;
 const extensions = [...DEFAULT_EXTENSIONS, ".ts", ".tsx"];
 const external = [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})];
 const globals = {};
+
+const license = fs.readFileSync("./LICENSE", "utf-8").split(/\r?\n/g).reduce((str, line) => str += ` * ${line}\n`, "");
 const bannerText =
 `/*! *****************************************************************************
  *
  * ${pkgName}
- * v${pkgVersion}
+ * v${pkg.version}
  *
 ${license}***************************************************************************** */\n`;
 
-const input = "./src/index.ts";
 
 export default [
   // ESM
@@ -36,7 +36,7 @@ export default [
     plugins: [
       nodeResolve({
         extensions,
-        mainFields: ["module", "main"],
+        mainFields: ["jsnext:main", "module", "main"],
       }),
 
       commonjs({
@@ -89,7 +89,7 @@ export default [
     plugins: [
       nodeResolve({
         extensions,
-        mainFields: ["node", "main"],
+        mainFields: ["node", "main", "module"],
       }),
 
       commonjs({
@@ -140,12 +140,15 @@ export default [
     plugins: [
       nodeResolve({
         extensions,
-        mainFields: ["browser", "main"],
+        mainFields: ["browser", "main", "module"],
         browser: true,
       }),
 
-      commonjs({ include: "node_modules/**" }),
-
+      commonjs({
+        include: "node_modules/**",
+        transformMixedEsModules: true,
+      }),
+      
       typescript({
         exclude: [ "node_modules", "*.d.ts", "**/*.d.ts" ],
         include: [ "*.ts+(|x)", "**/*.ts+(|x)", "*.m?js+(|x)", "**/*.m?js+(|x)" ],
@@ -163,6 +166,7 @@ export default [
 
       terser({
         ecma: 2020,
+        safari10: true,
         compress: true,
         mangle: true,
       }),
