@@ -1,14 +1,16 @@
 {
   "deno.enable": false,
   "cSpell.words": [
-    "ESNEXT",
     "corejs",
     "devtool",
+    "dotfiles",
     "downlevel",
     "esmodules",
+    "ESNEXT",
     "iife",
     "jsnext",
     "jstemplate",
+    "postbuild",
     "sourcemap",
     "treeshake",
     "tslib",
