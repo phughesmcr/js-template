@@ -72,7 +72,6 @@
     "resolveJsonModule": true,
   },
   "include": [
-    "./src/**/*",
     "./src/**/*"
   ]
 }
