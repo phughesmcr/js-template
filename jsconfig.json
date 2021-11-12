@@ -5,17 +5,8 @@
     "strict": true,
     "baseUrl": "."
   },
-  "exclude": [
-    ".github",
-    ".vscode",
-    "build",
-    "demo",
-    "dist",
-    "docs",
-    "node_modules",
-    "test",
-    "types",
-    "rollup.config.js",
-    "rollup.config.dev.js",
+  "include": [
+    "src/**/*",
+    "test/**/*"
   ]
 }

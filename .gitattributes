@@ -16,7 +16,7 @@ src/vendor/*      linguist-generated=true
 *.sass            text
 *.scm             text
 *.scss            text diff=css
-*.sh              text eol=lf
+*.sh              text
 *.sql             text
 *.ts              text
 *.tsx             text
