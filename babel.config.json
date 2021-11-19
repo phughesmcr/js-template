@@ -1,15 +1,19 @@
 {
   "sourceType": "unambiguous",
   "presets": [
-    ["@babel/preset-env", {
-      "targets": ">0.5%, not dead, not ie <= 11, not ie_mob 11",
-      "bugfixes": true,
-      "corejs": {
-        "version": "3.19",
-        "proposals": true
-      },
-      "useBuiltIns": "usage"
-    }],
+    [
+      "@babel/preset-env",
+      {
+        "targets": ">0.25%, not dead, not ie <= 11, not ie_mob 11",
+        "bugfixes": true,
+        "corejs": {
+          "version": "3.19",
+          "proposals": true
+        },
+        "useBuiltIns": "usage",
+        "forceAllTransforms": true
+      }
+    ],
     "@babel/preset-typescript"
   ]
 }
