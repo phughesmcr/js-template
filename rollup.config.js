@@ -62,7 +62,7 @@ export default [
 
       terser({
         safari10: true,
-        ecma: 2020,
+        ecma: 2021,
         module: true,
         compress: true,
         mangle: true,
@@ -113,7 +113,7 @@ export default [
       }),
 
       terser({
-        ecma: 2020,
+        ecma: 2021,
         compress: true,
         mangle: true,
       }),
@@ -165,7 +165,7 @@ export default [
       }),
 
       terser({
-        ecma: 2020,
+        ecma: 2021,
         safari10: true,
         compress: true,
         mangle: true,
