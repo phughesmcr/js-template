@@ -44,6 +44,7 @@ export default [
       }),
 
       babel({
+        envName: "esm",
         extensions,
         babelHelpers: "bundled",
         include: ["src/**/*"],

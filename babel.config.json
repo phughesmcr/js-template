@@ -1,19 +1,78 @@
 {
-  "sourceType": "unambiguous",
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "targets": ">0.25%, not dead, not ie <= 11, not ie_mob 11",
-        "bugfixes": true,
-        "corejs": {
-          "version": "3.19",
-          "proposals": true
-        },
-        "useBuiltIns": "usage",
-        "forceAllTransforms": true
-      }
-    ],
-    "@babel/preset-typescript"
-  ]
+  "env": {
+    "esm": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "modules": false,
+            "targets": {
+              "esmodules": true
+            },
+            "bugfixes": true,
+            "corejs": {
+              "version": "3.19",
+              "proposals": true
+            },
+            "useBuiltIns": "usage",
+            "forceAllTransforms": true
+          }
+        ]
+      ]
+    },
+    "cjs": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "modules": false,
+            "targets": {
+              "node": "10"
+            },
+            "bugfixes": true,
+            "corejs": {
+              "version": "3.19",
+              "proposals": true
+            },
+            "useBuiltIns": "usage",
+            "forceAllTransforms": true
+          }
+        ]
+      ]
+    },
+    "umd": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "targets": "defaults, node >= 10",
+            "bugfixes": true,
+            "corejs": {
+              "version": "3.19",
+              "proposals": true
+            },
+            "useBuiltIns": "usage",
+            "forceAllTransforms": true
+          }
+        ]
+      ]
+    },
+    "iife": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "targets": "defaults",
+            "bugfixes": true,
+            "corejs": {
+              "version": "3.19",
+              "proposals": true
+            },
+            "useBuiltIns": "usage",
+            "forceAllTransforms": true
+          }
+        ]
+      ]
+    }
+  }
 }

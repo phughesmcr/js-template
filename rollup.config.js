@@ -47,13 +47,13 @@ export default [
       typescript({
         exclude: [ "node_modules", "*.d.ts", "**/*.d.ts" ],
         include: [ "*.ts+(|x)", "**/*.ts+(|x)", "*.m?js+(|x)", "**/*.m?js+(|x)" ],
-        module: "ES2020",
         tsconfig: "tsconfig.json",
         tslib: require("tslib"),
         typescript: require("typescript"),
       }),
 
       babel({
+        envName: "esm",
         extensions,
         babelHelpers: "bundled",
         include: ["src/**/*"],
@@ -106,6 +106,7 @@ export default [
       }),
 
       babel({
+        envName: "cjs",
         extensions,
         babelHelpers: "bundled",
         include: ["src/**/*"],
@@ -148,7 +149,7 @@ export default [
         include: "node_modules/**",
         transformMixedEsModules: true,
       }),
-      
+
       typescript({
         exclude: [ "node_modules", "*.d.ts", "**/*.d.ts" ],
         include: [ "*.ts+(|x)", "**/*.ts+(|x)", "*.m?js+(|x)", "**/*.m?js+(|x)" ],
@@ -158,6 +159,7 @@ export default [
       }),
 
       babel({
+        envName: "umd",
         extensions,
         babelHelpers: "bundled",
         include: ["src/**/*"],
@@ -165,36 +167,78 @@ export default [
       }),
 
       terser({
-        ecma: 2021,
+        ecma: 5,
         safari10: true,
         compress: true,
         mangle: true,
       }),
     ],
 
-    output: [
-      {
-        banner: bannerText,
-        esModule: false,
-        exports: "named",
-        file: "./dist/umd/index.min.js",
-        format: "umd",
-        name: pkgName,
-        noConflict: true,
-        sourcemap: true,
-        globals,
-      },
-      {
-        banner: bannerText,
-        esModule: false,
-        exports: "named",
-        file: "./dist/iife/index.min.js",
-        format: "iife",
-        name: pkgName,
-        sourcemap: true,
-        globals,
-      }
-    ]
+    output: {
+      banner: bannerText,
+      esModule: false,
+      exports: "named",
+      file: "./dist/umd/index.min.js",
+      format: "umd",
+      name: pkgName,
+      noConflict: true,
+      sourcemap: true,
+      globals,
+    }
+  },
+
+  // IIFE
+  {
+    input,
+
+    external,
+
+    plugins: [
+      nodeResolve({
+        extensions,
+        mainFields: ["browser", "main", "module"],
+        browser: true,
+      }),
+
+      commonjs({
+        include: "node_modules/**",
+        transformMixedEsModules: true,
+      }),
+
+      typescript({
+        exclude: [ "node_modules", "*.d.ts", "**/*.d.ts" ],
+        include: [ "*.ts+(|x)", "**/*.ts+(|x)", "*.m?js+(|x)", "**/*.m?js+(|x)" ],
+        tsconfig: "tsconfig.json",
+        tslib: require("tslib"),
+        typescript: require("typescript"),
+      }),
+
+      babel({
+        envName: "iife",
+        extensions,
+        babelHelpers: "bundled",
+        include: ["src/**/*"],
+        exclude: ["node_modules/**/*"],
+      }),
+
+      terser({
+        ecma: 5,
+        safari10: true,
+        compress: true,
+        mangle: true,
+      }),
+    ],
+
+    output: {
+      banner: bannerText,
+      esModule: false,
+      exports: "named",
+      file: "./dist/iife/index.min.js",
+      format: "iife",
+      name: pkgName,
+      sourcemap: true,
+      globals,
+    }
   },
   // TYPESCRIPT DECLARATIONS
   {
