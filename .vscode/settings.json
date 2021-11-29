@@ -1,6 +1,6 @@
 {
-  "deno.enable": false,
   "cSpell.words": [
+    "CODEOWNERS",
     "corejs",
     "devtool",
     "dotfiles",
@@ -10,6 +10,7 @@
     "iife",
     "jsnext",
     "jstemplate",
+    "Parens",
     "postbuild",
     "sourcemap",
     "treeshake",
@@ -17,11 +18,29 @@
     "typechecking",
     "typedoc"
   ],
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "eslint.validate": ["json", "jsonc"],
+  "deno.enable": false,
   "editor.codeActionsOnSave": {
+    "source.organizeImports": true,
     "source.fixAll": true
   },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "prettier.requireConfig": true
+  "editor.insertSpaces": true,
+  "eslint.lintTask.enable": true,
+  "eslint.packageManager": "npm",
+  "eslint.run": "onSave",
+  "eslint.validate": ["json", "jsonc"],
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "javascript.preferences.importModuleSpecifier": "relative",
+  "javascript.preferences.quoteStyle": "double",
+  "javascript.suggest.completeFunctionCalls": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "prettier.requireConfig": true,
+  "typescript.locale": "en",
+  "typescript.preferences.quoteStyle": "double",
+  "typescript.referencesCodeLens.showOnAllFunctions": true,
+  "typescript.suggest.completeFunctionCalls": true,
+  "typescript.tsdk": "/node_modules/typescript/lib",
+  "typescript.updateImportsOnFileMove.enabled": "always",
 }
