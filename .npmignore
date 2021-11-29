@@ -13,6 +13,8 @@ types/
 .gitattributes
 .gitignore
 .mocharc.json
+.prettierignore
+.prettierrc
 babel.config.json
 CODE_OF_CONDUCT.md
 CONTRIBUTING.md
@@ -20,6 +22,6 @@ jsconfig.json
 pull_request_template.md
 rollup.config.js
 rollup.config.dev.js
-tsconfig.json
 tsconfig.dev.json
+tsconfig.json
 tsconfig.testing.json
