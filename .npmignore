@@ -16,12 +16,12 @@ types/
 .prettierignore
 .prettierrc
 babel.config.json
+CHANGELOG.md
 CODE_OF_CONDUCT.md
 CONTRIBUTING.md
-jsconfig.json
 pull_request_template.md
-rollup.config.js
 rollup.config.dev.js
+rollup.config.js
 tsconfig.dev.json
 tsconfig.json
 tsconfig.testing.json
