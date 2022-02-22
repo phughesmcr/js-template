@@ -11,7 +11,7 @@
             },
             "bugfixes": true,
             "corejs": {
-              "version": "3.19",
+              "version": "3.21",
               "proposals": true
             },
             "useBuiltIns": "usage",
@@ -31,7 +31,7 @@
             },
             "bugfixes": true,
             "corejs": {
-              "version": "3.19",
+              "version": "3.21",
               "proposals": true
             },
             "useBuiltIns": "usage",
@@ -48,7 +48,7 @@
             "targets": "defaults, node >= 10",
             "bugfixes": true,
             "corejs": {
-              "version": "3.19",
+              "version": "3.21",
               "proposals": true
             },
             "useBuiltIns": "usage",
@@ -65,7 +65,7 @@
             "targets": "defaults",
             "bugfixes": true,
             "corejs": {
-              "version": "3.19",
+              "version": "3.21",
               "proposals": true
             },
             "useBuiltIns": "usage",
