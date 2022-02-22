@@ -1,60 +1,62 @@
 "use strict";
 
+import { DEFAULT_EXTENSIONS } from "@babel/core";
 import babel from "@rollup/plugin-babel";
 import commonjs from "@rollup/plugin-commonjs";
-import dts from "rollup-plugin-dts";
-import fs from "fs";
+import json from "@rollup/plugin-json";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
-import * as pkg from "./package.json";
-import typescript from "@rollup/plugin-typescript";
-import { DEFAULT_EXTENSIONS } from "@babel/core";
+import dts from "rollup-plugin-dts";
 import { terser } from "rollup-plugin-terser";
+import typescript from 'rollup-plugin-typescript2';
+import * as pkg from "./package.json";
 
-const input = "./src/index.ts";
-const pkgName = pkg.name;
-const extensions = [...DEFAULT_EXTENSIONS, ".ts", ".tsx"];
-const external = [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})];
-const globals = {};
-
-const license = fs.readFileSync("./LICENSE", "utf-8").split(/\r?\n/g).reduce((str, line) => str += ` * ${line}\n`, "");
-const bannerText =
-`/*! *****************************************************************************
- *
- * ${pkgName}
- * v${pkg.version}
- *
-${license}***************************************************************************** */\n`;
-
+const CURRENT_YEAR = new Date().getFullYear();
+const PACKAGE_NAME = pkg.name;
+const BANNER = `/*! ${PACKAGE_NAME} v${pkg.version}. ${pkg.license} license. (C) ${CURRENT_YEAR} ${pkg.author.name}<${pkg.author.email}>(${pkg.author.url}). All rights reserved. **/\n`;
+const EXTENSIONS = [...DEFAULT_EXTENSIONS, ".ts", ".tsx"];
+const EXTERNAL = [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})];
+const GLOBALS = {};
+const INPUT = "./src/index.ts";
 
 export default [
   // ESM
   {
-    input,
+    input: INPUT,
 
-    external,
+    external: EXTERNAL,
 
     plugins: [
       nodeResolve({
-        extensions,
+        extensions: EXTENSIONS,
         mainFields: ["jsnext:main", "module", "main"],
       }),
 
       commonjs({
         include: "node_modules/**",
         transformMixedEsModules: true,
-       }),
+      }),
+
+      json({
+        compact: true,
+        preferConst: true,
+      }),
 
       typescript({
+        clean: true,
         exclude: [ "node_modules", "*.d.ts", "**/*.d.ts" ],
         include: [ "*.ts+(|x)", "**/*.ts+(|x)", "*.m?js+(|x)", "**/*.m?js+(|x)" ],
         tsconfig: "tsconfig.json",
         tslib: require("tslib"),
         typescript: require("typescript"),
+        tsconfigOverride: {
+          declaration: false,
+        },
+        useTsconfigDeclarationDir: true,
       }),
 
       babel({
         envName: "esm",
-        extensions,
+        extensions: EXTENSIONS,
         babelHelpers: "bundled",
         include: ["src/**/*"],
         exclude: ["node_modules/**/*"],
@@ -70,25 +72,25 @@ export default [
     ],
 
     output: [{
-      banner: bannerText,
+      banner: BANNER,
       esModule: true,
       exports: "named",
       file: "./dist/esm/index.min.js",
       format: "es",
       sourcemap: true,
-      globals,
+      globals: GLOBALS,
     }],
   },
 
   // CJS
   {
-    input,
+    input: INPUT,
 
-    external,
+    external: EXTERNAL,
 
     plugins: [
       nodeResolve({
-        extensions,
+        extensions: EXTENSIONS,
         mainFields: ["node", "main", "module"],
       }),
 
@@ -97,17 +99,27 @@ export default [
         transformMixedEsModules: true,
       }),
 
+      json({
+        compact: true,
+        preferConst: true,
+      }),
+
       typescript({
+        clean: true,
         exclude: [ "node_modules", "*.d.ts", "**/*.d.ts" ],
         include: [ "*.ts+(|x)", "**/*.ts+(|x)", "*.m?js+(|x)", "**/*.m?js+(|x)" ],
         tsconfig: "tsconfig.json",
         tslib: require("tslib"),
         typescript: require("typescript"),
+        tsconfigOverride: {
+          declaration: false,
+        },
+        useTsconfigDeclarationDir: true,
       }),
 
       babel({
         envName: "cjs",
-        extensions,
+        extensions: EXTENSIONS,
         babelHelpers: "bundled",
         include: ["src/**/*"],
         exclude: ["node_modules/**/*"],
@@ -121,26 +133,26 @@ export default [
     ],
 
     output: {
-      banner: bannerText,
+      banner: BANNER,
       esModule: false,
       exports: "named",
       file: "./dist/cjs/index.min.js",
       format: "cjs",
-      name: pkgName,
+      name: PACKAGE_NAME,
       sourcemap: true,
-      globals,
+      globals: GLOBALS,
     },
   },
 
   // UMD & IIFE
   {
-    input,
+    input: INPUT,
 
-    external,
+    external: EXTERNAL,
 
     plugins: [
       nodeResolve({
-        extensions,
+        extensions: EXTENSIONS,
         mainFields: ["browser", "main", "module"],
         browser: true,
       }),
@@ -150,17 +162,27 @@ export default [
         transformMixedEsModules: true,
       }),
 
+      json({
+        compact: true,
+        preferConst: true,
+      }),
+
       typescript({
+        clean: true,
         exclude: [ "node_modules", "*.d.ts", "**/*.d.ts" ],
         include: [ "*.ts+(|x)", "**/*.ts+(|x)", "*.m?js+(|x)", "**/*.m?js+(|x)" ],
         tsconfig: "tsconfig.json",
         tslib: require("tslib"),
         typescript: require("typescript"),
+        tsconfigOverride: {
+          declaration: false,
+        },
+        useTsconfigDeclarationDir: true,
       }),
 
       babel({
         envName: "umd",
-        extensions,
+        extensions: EXTENSIONS,
         babelHelpers: "bundled",
         include: ["src/**/*"],
         exclude: ["node_modules/**/*"],
@@ -175,27 +197,27 @@ export default [
     ],
 
     output: {
-      banner: bannerText,
+      banner: BANNER,
       esModule: false,
       exports: "named",
       file: "./dist/umd/index.min.js",
       format: "umd",
-      name: pkgName,
+      name: PACKAGE_NAME,
       noConflict: true,
       sourcemap: true,
-      globals,
+      globals: GLOBALS,
     }
   },
 
   // IIFE
   {
-    input,
+    input: INPUT,
 
-    external,
+    external: EXTERNAL,
 
     plugins: [
       nodeResolve({
-        extensions,
+        extensions: EXTENSIONS,
         mainFields: ["browser", "main", "module"],
         browser: true,
       }),
@@ -205,17 +227,27 @@ export default [
         transformMixedEsModules: true,
       }),
 
+      json({
+        compact: true,
+        preferConst: true,
+      }),
+
       typescript({
+        clean: true,
         exclude: [ "node_modules", "*.d.ts", "**/*.d.ts" ],
         include: [ "*.ts+(|x)", "**/*.ts+(|x)", "*.m?js+(|x)", "**/*.m?js+(|x)" ],
         tsconfig: "tsconfig.json",
         tslib: require("tslib"),
         typescript: require("typescript"),
+        tsconfigOverride: {
+          declaration: false,
+        },
+        useTsconfigDeclarationDir: true,
       }),
 
       babel({
         envName: "iife",
-        extensions,
+        extensions: EXTENSIONS,
         babelHelpers: "bundled",
         include: ["src/**/*"],
         exclude: ["node_modules/**/*"],
@@ -230,14 +262,14 @@ export default [
     ],
 
     output: {
-      banner: bannerText,
+      banner: BANNER,
       esModule: false,
       exports: "named",
       file: "./dist/iife/index.min.js",
       format: "iife",
-      name: pkgName,
+      name: PACKAGE_NAME,
       sourcemap: true,
-      globals,
+      globals: GLOBALS,
     }
   },
   // TYPESCRIPT DECLARATIONS
