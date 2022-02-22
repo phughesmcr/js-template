@@ -70,7 +70,7 @@
     "check:types": "tsc --noEmit",
     "check:es5": "npx es-check es5 ./dist/iife/*.js --verbose",
     "check:es3": "npx es-check es3 ./dist/iife/*.js --verbose",
-    "gh-pages": "gh-pages --dist=./demo --dotfiles=true"
+    "gh-pages": "gh-pages --dist=./ --dotfiles=true"
   },
   "repository": {
     "type": "git",
