@@ -6,6 +6,7 @@ import { nodeResolve } from "@rollup/plugin-node-resolve";
 import dts from "rollup-plugin-dts";
 import { terser } from "rollup-plugin-terser";
 import typescript from 'rollup-plugin-typescript2';
+import replace from '@rollup/plugin-replace';
 
 const CURRENT_YEAR = new Date().getFullYear();
 const PACKAGE_NAME = process.env.npm_package_name;
@@ -32,7 +33,7 @@ export default [
       replace({
         exclude: 'node_modules/**',
         values: {
-          __VERSION__: VERSION,
+          __VERSION__: PACKAGE_VERSION,
         },
         preventAssignment: true,
       }),
@@ -102,7 +103,7 @@ export default [
       replace({
         exclude: 'node_modules/**',
         values: {
-          __VERSION__: VERSION,
+          __VERSION__: PACKAGE_VERSION,
         },
         preventAssignment: true,
       }),
@@ -171,7 +172,7 @@ export default [
       replace({
         exclude: 'node_modules/**',
         values: {
-          __VERSION__: VERSION,
+          __VERSION__: PACKAGE_VERSION,
         },
         preventAssignment: true,
       }),
@@ -243,7 +244,7 @@ export default [
       replace({
         exclude: 'node_modules/**',
         values: {
-          __VERSION__: VERSION,
+          __VERSION__: PACKAGE_VERSION,
         },
         preventAssignment: true,
       }),

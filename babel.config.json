@@ -27,7 +27,7 @@
           {
             "modules": false,
             "targets": {
-              "node": "10"
+              "node": "14"
             },
             "bugfixes": true,
             "corejs": {

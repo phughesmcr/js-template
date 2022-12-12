@@ -4,7 +4,9 @@ import json from "@rollup/plugin-json";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import dts from "rollup-plugin-dts";
 import typescript from 'rollup-plugin-typescript2';
+import replace from '@rollup/plugin-replace';
 
+const PACKAGE_VERSION = process.env.npm_package_version;
 const EXTENSIONS = [...DEFAULT_EXTENSIONS, ".ts", ".tsx"];
 const EXTERNALS = {}; // list package.dependencies & package.peerDependencies here.
 const GLOBALS = {};
@@ -20,7 +22,7 @@ export default [
       replace({
         exclude: 'node_modules/**',
         values: {
-          __VERSION__: VERSION,
+          __VERSION__: PACKAGE_VERSION,
         },
         preventAssignment: true,
       }),
