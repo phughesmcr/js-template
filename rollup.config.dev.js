@@ -1,71 +1,74 @@
-"use strict";
-
-import babel from "@rollup/plugin-babel";
-import commonjs from "@rollup/plugin-commonjs";
-import dts from "rollup-plugin-dts";
-import { nodeResolve } from "@rollup/plugin-node-resolve";
-import typescript from "@rollup/plugin-typescript";
 import { DEFAULT_EXTENSIONS } from "@babel/core";
-import * as pkg from "./package.json";
+import commonjs from "@rollup/plugin-commonjs";
+import json from "@rollup/plugin-json";
+import { nodeResolve } from "@rollup/plugin-node-resolve";
+import dts from "rollup-plugin-dts";
+import typescript from 'rollup-plugin-typescript2';
 
-const extensions = [...DEFAULT_EXTENSIONS, ".ts", ".tsx"];
-const external = [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})];
-const globals = {};
-
-const input = "./src/index.ts";
+const EXTENSIONS = [...DEFAULT_EXTENSIONS, ".ts", ".tsx"];
+const EXTERNALS = {}; // list package.dependencies & package.peerDependencies here.
+const GLOBALS = {};
+const INPUT = "./src/index.ts";
 
 export default [
   {
-    input,
+    input: INPUT,
 
-    external,
+    external: EXTERNALS,
 
     plugins: [
-      // Allows node_modules resolution
-      nodeResolve({
-        extensions,
-        mainFields: ["module", "main"],
+      replace({
+        exclude: 'node_modules/**',
+        values: {
+          __VERSION__: VERSION,
+        },
+        preventAssignment: true,
       }),
 
-      // Allow bundling cjs modules. Rollup doesn't understand cjs
+      nodeResolve({
+        extensions: EXTENSIONS,
+        mainFields: ["jsnext:main", "module", "main"],
+        skip: EXTERNALS,
+      }),
+
       commonjs({
         include: "node_modules/**",
         transformMixedEsModules: true,
-       }),
-
-      // Compile TypeScript/JavaScript files
-      typescript({
-        exclude: [ "node_modules", "*.d.ts", "**/*.d.ts" ],
-        include: [ "*.ts+(|x)", "**/*.ts+(|x)", "*.m?js+(|x)", "**/*.m?js+(|x)" ],
-        module: "ES2020",
-        tsconfig: "tsconfig.dev.json",
-        tslib: require("tslib"),
-        typescript: require("typescript"),
       }),
 
-      babel({
-        envName: "esm",
-        extensions,
-        babelHelpers: "bundled",
-        include: ["src/**/*"],
-        exclude: ["node_modules/**/*"],
+      json({
+        compact: true,
+        preferConst: true,
+      }),
+
+      typescript({
+        clean: true,
+        exclude: [ "node_modules", "*.d.ts", "**/*.d.ts" ],
+        include: [ "*.ts+(|x)", "**/*.ts+(|x)", "*.m?js+(|x)", "**/*.m?js+(|x)" ],
+        tsconfig: "tsconfig.json",
+        tsconfigOverride: {
+          declaration: false,
+        },
+        useTsconfigDeclarationDir: true,
       }),
     ],
 
-    output: {
+    output: [{
       esModule: true,
       exports: "named",
-      file: "./dist/esm/index.min.js",
+      file: "./dist/dev/index.min.js",
       format: "es",
-      globals,
-    },
+      sourcemap: false,
+      globals: GLOBALS,
+    }],
   },
+
   // TYPESCRIPT DECLARATIONS
   {
     input: "./types/index.d.ts",
     output: [
       {
-        file: "./dist/esm/index.min.d.ts",
+        file: "./dist/dev/index.min.d.ts",
         format: "es"
       },
     ],

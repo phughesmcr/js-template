@@ -1,5 +1,3 @@
-"use strict";
-
 import { DEFAULT_EXTENSIONS } from "@babel/core";
 import babel from "@rollup/plugin-babel";
 import commonjs from "@rollup/plugin-commonjs";
@@ -8,13 +6,18 @@ import { nodeResolve } from "@rollup/plugin-node-resolve";
 import dts from "rollup-plugin-dts";
 import { terser } from "rollup-plugin-terser";
 import typescript from 'rollup-plugin-typescript2';
-import * as pkg from "./package.json";
 
 const CURRENT_YEAR = new Date().getFullYear();
-const PACKAGE_NAME = pkg.name;
-const BANNER = `/*! ${PACKAGE_NAME} v${pkg.version}. ${pkg.license} license. (C) ${CURRENT_YEAR} ${pkg.author.name}<${pkg.author.email}>(${pkg.author.url}). All rights reserved. **/\n`;
+const PACKAGE_NAME = process.env.npm_package_name;
+const PACKAGE_VERSION = process.env.npm_package_version;
+const PACKAGE_LICENSE = process.env.npm_package_license;
+const AUTHOR_NAME = "Peter Hughes";
+const AUTHOR_EMAIL = "github@phugh.es";
+const AUTHOR_URL = "https://www.phugh.es"
+
+const BANNER = `/*! ${PACKAGE_NAME} v${PACKAGE_VERSION}. ${PACKAGE_LICENSE} license. (C) ${CURRENT_YEAR} ${AUTHOR_NAME}<${AUTHOR_EMAIL}>(${AUTHOR_URL}). All rights reserved. **/\n`;
 const EXTENSIONS = [...DEFAULT_EXTENSIONS, ".ts", ".tsx"];
-const EXTERNAL = [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})];
+const EXTERNALS = {}; // list package.dependencies & package.peerDependencies here.
 const GLOBALS = {};
 const INPUT = "./src/index.ts";
 
@@ -23,12 +26,21 @@ export default [
   {
     input: INPUT,
 
-    external: EXTERNAL,
+    external: EXTERNALS,
 
     plugins: [
+      replace({
+        exclude: 'node_modules/**',
+        values: {
+          __VERSION__: VERSION,
+        },
+        preventAssignment: true,
+      }),
+
       nodeResolve({
         extensions: EXTENSIONS,
         mainFields: ["jsnext:main", "module", "main"],
+        skip: EXTERNALS,
       }),
 
       commonjs({
@@ -46,8 +58,6 @@ export default [
         exclude: [ "node_modules", "*.d.ts", "**/*.d.ts" ],
         include: [ "*.ts+(|x)", "**/*.ts+(|x)", "*.m?js+(|x)", "**/*.m?js+(|x)" ],
         tsconfig: "tsconfig.json",
-        tslib: require("tslib"),
-        typescript: require("typescript"),
         tsconfigOverride: {
           declaration: false,
         },
@@ -86,12 +96,21 @@ export default [
   {
     input: INPUT,
 
-    external: EXTERNAL,
+    external: EXTERNALS,
 
     plugins: [
+      replace({
+        exclude: 'node_modules/**',
+        values: {
+          __VERSION__: VERSION,
+        },
+        preventAssignment: true,
+      }),
+
       nodeResolve({
         extensions: EXTENSIONS,
         mainFields: ["node", "main", "module"],
+        skip: EXTERNALS,
       }),
 
       commonjs({
@@ -109,8 +128,6 @@ export default [
         exclude: [ "node_modules", "*.d.ts", "**/*.d.ts" ],
         include: [ "*.ts+(|x)", "**/*.ts+(|x)", "*.m?js+(|x)", "**/*.m?js+(|x)" ],
         tsconfig: "tsconfig.json",
-        tslib: require("tslib"),
-        typescript: require("typescript"),
         tsconfigOverride: {
           declaration: false,
         },
@@ -148,13 +165,22 @@ export default [
   {
     input: INPUT,
 
-    external: EXTERNAL,
+    external: EXTERNALS,
 
     plugins: [
+      replace({
+        exclude: 'node_modules/**',
+        values: {
+          __VERSION__: VERSION,
+        },
+        preventAssignment: true,
+      }),
+
       nodeResolve({
         extensions: EXTENSIONS,
         mainFields: ["browser", "main", "module"],
         browser: true,
+        skip: EXTERNALS,
       }),
 
       commonjs({
@@ -172,8 +198,6 @@ export default [
         exclude: [ "node_modules", "*.d.ts", "**/*.d.ts" ],
         include: [ "*.ts+(|x)", "**/*.ts+(|x)", "*.m?js+(|x)", "**/*.m?js+(|x)" ],
         tsconfig: "tsconfig.json",
-        tslib: require("tslib"),
-        typescript: require("typescript"),
         tsconfigOverride: {
           declaration: false,
         },
@@ -213,13 +237,22 @@ export default [
   {
     input: INPUT,
 
-    external: EXTERNAL,
+    external: EXTERNALS,
 
     plugins: [
+      replace({
+        exclude: 'node_modules/**',
+        values: {
+          __VERSION__: VERSION,
+        },
+        preventAssignment: true,
+      }),
+
       nodeResolve({
         extensions: EXTENSIONS,
         mainFields: ["browser", "main", "module"],
         browser: true,
+        skip: EXTERNALS,
       }),
 
       commonjs({
@@ -237,8 +270,6 @@ export default [
         exclude: [ "node_modules", "*.d.ts", "**/*.d.ts" ],
         include: [ "*.ts+(|x)", "**/*.ts+(|x)", "*.m?js+(|x)", "**/*.m?js+(|x)" ],
         tsconfig: "tsconfig.json",
-        tslib: require("tslib"),
-        typescript: require("typescript"),
         tsconfigOverride: {
           declaration: false,
         },
