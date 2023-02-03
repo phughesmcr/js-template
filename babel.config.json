@@ -6,12 +6,10 @@
           "@babel/preset-env",
           {
             "modules": false,
-            "targets": {
-              "esmodules": true
-            },
+            "targets": "> 0.5%, last 2 versions, Firefox ESR, not dead, not ie 11, not ie_mob 11",
             "bugfixes": true,
             "corejs": {
-              "version": "3.26",
+              "version": "3.27",
               "proposals": true
             },
             "useBuiltIns": "usage",
@@ -27,11 +25,11 @@
           {
             "modules": false,
             "targets": {
-              "node": "14"
+              "node": "16"
             },
             "bugfixes": true,
             "corejs": {
-              "version": "3.26",
+              "version": "3.27",
               "proposals": true
             },
             "useBuiltIns": "usage",
@@ -45,10 +43,11 @@
         [
           "@babel/preset-env",
           {
-            "targets": "defaults, node >= 10",
+            "modules": false,
+            "targets": "defaults, node >= 14, not ie 11, not ie_mob 11",
             "bugfixes": true,
             "corejs": {
-              "version": "3.26",
+              "version": "3.27",
               "proposals": true
             },
             "useBuiltIns": "usage",
@@ -62,10 +61,11 @@
         [
           "@babel/preset-env",
           {
-            "targets": "defaults",
+            "modules": false,
+            "targets": "defaults, not ie 11, not ie_mob 11",
             "bugfixes": true,
             "corejs": {
-              "version": "3.26",
+              "version": "3.27",
               "proposals": true
             },
             "useBuiltIns": "usage",

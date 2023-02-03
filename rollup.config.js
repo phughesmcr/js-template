@@ -308,26 +308,14 @@ export default [
   {
     input: "./types/index.d.ts",
     output: [
-      // CJS
-      {
-        file: "./dist/cjs/index.min.d.ts",
-        format: "es"
-      },
-      // UMD
-      {
-        file: "./dist/umd/index.min.d.ts",
-        format: "es"
-      },
       // Browser
-      {
-        file: "./dist/iife/index.min.d.ts",
-        format: "es"
-      },
+      { file: "./dist/iife/index.min.d.ts" },
+      // CJS
+      { file: "./dist/cjs/index.min.d.ts" },
       // ESM
-      {
-        file: "./dist/esm/index.min.d.ts",
-        format: "es"
-      },
+      { file: "./dist/esm/index.min.d.ts" },
+      // UMD
+      { file: "./dist/umd/index.min.d.ts" },
     ],
     plugins: [
       dts(),
