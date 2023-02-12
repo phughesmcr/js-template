@@ -53,7 +53,7 @@ export default [
     output: [{
       esModule: true,
       exports: "named",
-      file: "./dist/dev/index.min.js",
+      file: "./dist/esm/index.min.js",
       format: "esm",
       sourcemap: false,
       globals: GLOBALS,
@@ -65,7 +65,7 @@ export default [
     input: "./types/index.d.ts",
     output: [
       {
-        file: "./dist/dev/index.min.d.ts",
+        file: "./dist/esm/index.min.d.ts",
         format: "esm"
       },
     ],
