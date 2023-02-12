@@ -45,7 +45,7 @@ export default [
 
       typescript({
         clean: true,
-        tsconfig: "tsconfig.json",
+        tsconfig: "tsconfig.dev.json",
         useTsconfigDeclarationDir: true,
       }),
     ],
