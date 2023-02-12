@@ -40,7 +40,7 @@ export default [
 
       nodeResolve({
         extensions: EXTENSIONS,
-        mainFields: ["jsnext:main", "module", "main"],
+        mainFields: ["module", "main"],
         skip: EXTERNALS,
       }),
 
@@ -56,12 +56,7 @@ export default [
 
       typescript({
         clean: true,
-        exclude: [ "node_modules", "*.d.ts", "**/*.d.ts" ],
-        include: [ "*.ts+(|x)", "**/*.ts+(|x)", "*.m?js+(|x)", "**/*.m?js+(|x)" ],
         tsconfig: "tsconfig.json",
-        tsconfigOverride: {
-          declaration: false,
-        },
         useTsconfigDeclarationDir: true,
       }),
 
@@ -126,12 +121,7 @@ export default [
 
       typescript({
         clean: true,
-        exclude: [ "node_modules", "*.d.ts", "**/*.d.ts" ],
-        include: [ "*.ts+(|x)", "**/*.ts+(|x)", "*.m?js+(|x)", "**/*.m?js+(|x)" ],
         tsconfig: "tsconfig.json",
-        tsconfigOverride: {
-          declaration: false,
-        },
         useTsconfigDeclarationDir: true,
       }),
 
@@ -196,12 +186,7 @@ export default [
 
       typescript({
         clean: true,
-        exclude: [ "node_modules", "*.d.ts", "**/*.d.ts" ],
-        include: [ "*.ts+(|x)", "**/*.ts+(|x)", "*.m?js+(|x)", "**/*.m?js+(|x)" ],
         tsconfig: "tsconfig.json",
-        tsconfigOverride: {
-          declaration: false,
-        },
         useTsconfigDeclarationDir: true,
       }),
 
@@ -268,12 +253,7 @@ export default [
 
       typescript({
         clean: true,
-        exclude: [ "node_modules", "*.d.ts", "**/*.d.ts" ],
-        include: [ "*.ts+(|x)", "**/*.ts+(|x)", "*.m?js+(|x)", "**/*.m?js+(|x)" ],
         tsconfig: "tsconfig.json",
-        tsconfigOverride: {
-          declaration: false,
-        },
         useTsconfigDeclarationDir: true,
       }),
 
