@@ -1,10 +1,10 @@
 import { DEFAULT_EXTENSIONS } from "@babel/core";
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
-import { nodeResolve } from "@rollup/plugin-node-resolve";
+import nodeResolve from "@rollup/plugin-node-resolve";
+import replace from '@rollup/plugin-replace';
 import dts from "rollup-plugin-dts";
 import typescript from 'rollup-plugin-typescript2';
-import replace from '@rollup/plugin-replace';
 
 const PACKAGE_VERSION = process.env.npm_package_version;
 const EXTENSIONS = [...DEFAULT_EXTENSIONS, ".ts", ".tsx"];

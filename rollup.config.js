@@ -2,11 +2,11 @@ import { DEFAULT_EXTENSIONS } from "@babel/core";
 import babel from "@rollup/plugin-babel";
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
-import { nodeResolve } from "@rollup/plugin-node-resolve";
-import dts from "rollup-plugin-dts";
-import { terser } from "rollup-plugin-terser";
-import typescript from 'rollup-plugin-typescript2';
+import nodeResolve from "@rollup/plugin-node-resolve";
 import replace from '@rollup/plugin-replace';
+import terser from "@rollup/plugin-terser";
+import dts from "rollup-plugin-dts";
+import typescript from 'rollup-plugin-typescript2';
 
 const CURRENT_YEAR = new Date().getFullYear();
 const PACKAGE_NAME = process.env.npm_package_name;
