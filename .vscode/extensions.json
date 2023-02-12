@@ -1,8 +1,10 @@
 {
   "recommendations": [
     "dbaeumer.vscode-eslint",
-    "EditorConfig.EditorConfig",
+    "editorconfig.editorconfig",
     "esbenp.prettier-vscode",
     "streetsidesoftware.code-spell-checker",
+    "ms-edgedevtools.vscode-edge-devtools",
+    "ritwickdey.liveserver"
   ]
 }
