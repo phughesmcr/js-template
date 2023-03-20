@@ -29,6 +29,8 @@ export default [
 
     external: EXTERNALS,
 
+    treeshake: true,
+
     plugins: [
       replace({
         exclude: 'node_modules/**',
@@ -69,7 +71,6 @@ export default [
       }),
 
       terser({
-        safari10: true,
         ecma: 2021,
         module: true,
         compress: true,
@@ -134,7 +135,7 @@ export default [
       }),
 
       terser({
-        ecma: 2021,
+        ecma: 2020,
         compress: true,
         mangle: true,
       }),
@@ -152,7 +153,7 @@ export default [
     },
   },
 
-  // UMD & IIFE
+  // UMD
   {
     input: INPUT,
 
