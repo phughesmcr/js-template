@@ -10,7 +10,6 @@ Before you use, change the following files / properties:
 
   * `.github/CODEOWNERS` - Replace my Github username with yours.
   * `.github/FUNDING.yml` - Replace my Github username with yours.
-  * `.github/workflows/deploy.yml` -
   * `AUTHORS` - Replace my details with yours.
   * `SUPPORT.md` - Replace my details with yours.
   * `package.json` - Replace `name` and `author` properties.
