@@ -1,10 +1,8 @@
 {
   "recommendations": [
-    "dbaeumer.vscode-eslint",
-    "editorconfig.editorconfig",
-    "esbenp.prettier-vscode",
+    "denoland.vscode-deno",
+    "github.vscode-pull-request-github",
     "streetsidesoftware.code-spell-checker",
-    "ms-edgedevtools.vscode-edge-devtools",
-    "ritwickdey.liveserver"
+    "github.vscode-github-actions"
   ]
 }

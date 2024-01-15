@@ -1,0 +1,48 @@
+{
+  "bench": {
+    "include": ["bench/"]
+  },
+  "exclude": [
+    "vendor/",
+    "docs/",
+    "dist/",
+    "coverage/",
+    ".vscode",
+    ".github"
+  ],
+  "fmt": {
+    "lineWidth": 120,
+    "include": [
+      "bench/",
+      "scripts/",
+      "src/",
+      "test/"
+    ]
+  },
+  "imports": {
+    "std/": "https://deno.land/std@0.212.0/"
+  },
+  "lint": {
+    "include": [
+      "bench/",
+      "scripts/",
+      "src/",
+      "test/"
+    ],
+    "rules": {
+      "tags": ["recommended"]
+    }
+  },
+  "lock": false,
+  "tasks": {
+    "build": "deno run -A --unstable scripts/build.ts",
+    "clean": "deno run -A --unstable scripts/clean.ts",
+    "coverage": "deno test test/ --coverage=\"coverage\"",
+    "docs": "deno doc --import-map=deno.json --reload --json mod.ts",
+    "vendor": "deno vendor --import-map=deno.json --reload --output=vendor/ --unstable mod.ts",
+    "gh-pages": "npx gh-pages --dist=./ --dotfiles=true"
+  },
+  "test": {
+    "include": ["test/"]
+  }
+}

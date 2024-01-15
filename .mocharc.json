@@ -1,5 +1,0 @@
-{
-  "extension": ["js"],
-  "require": ["ts-node/register"],
-  "spec": "test/**/*.spec.js"
-}

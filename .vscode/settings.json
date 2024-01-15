@@ -1,11 +1,22 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
   "cSpell.words": [
     "caniuse",
     "CODEOWNERS",
     "codepaths",
     "corejs",
+    "deno",
     "devtool",
     "dotfiles",
     "downlevel",
@@ -23,4 +34,11 @@
     "typechecking",
     "typedoc"
   ],
+  "editor.rulers": [
+    120
+  ],
+  "deno.enable": true,
+  "deno.importMap": "./deno.json",
+  "deno.lint": true,
+  "editor.formatOnSave": true,
 }

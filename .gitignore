@@ -1,6 +1,5 @@
 # Intermediate build steps / generated files
-build/
-types/
+dist/
 
 # API keys and secrets
 .env
@@ -11,6 +10,9 @@ types/
 node_modules/
 npm-debug.log
 package-lock.json
+
+# Deno
+deno-lock.json
 
 # TypeScript cache
 *.tsbuildinfo

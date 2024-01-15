@@ -1,9 +1,12 @@
 # JS-Template
 
-My Typescript template for the creation of Javascript libraries in VSCode.
+My template repo for writing(/testing/benchmarking) javascript projects once in Deno/Typescript and then building for NPM and the (ES6 supporting) browser.
+
+**REQUIRES DENO.**
 
 ## IMPORTANT
 Before you use, change the following files / properties:
+
 
   * `.github/CODEOWNERS` - Replace my Github username with yours.
   * `.github/FUNDING.yml` - Replace my Github username with yours.
