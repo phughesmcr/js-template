@@ -3,7 +3,7 @@
 demo/*            linguist-documentation=true
 dist/*            linguist-generated=true
 docs/*            linguist-documentation=true
-src/vendor/*      linguist-generated=true
+vendor/*          linguist-generated=true
 index.html        linguist-documentation=true
 
 *.css             text
@@ -14,6 +14,7 @@ index.html        linguist-documentation=true
 *.jsx             text
 *.less            text
 *.map             text -diff
+*.mjs             text
 *.sass            text
 *.scm             text
 *.scss            text diff=css

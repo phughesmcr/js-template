@@ -10,7 +10,7 @@ For help and questions about using this project, please look at the [docs][docs]
 
 Support is limited to the resources listed above.
 
-[gh-issue]: https://github.com/phughesmcr/miski/issues/new/choose
-[gh-bug]: https://github.com/phughesmcr/miski/issues/new?assignees=&labels=Issue-Bug&template=bug_report.md&title=
-[gh-feature]: https://github.com/phughesmcr/miski/issues/new?assignees=&labels=Issue-Feature&template=Feature_Request.md&title=
-[contributor]: https://github.com/phughesmcr/miski/blob/main/CONTRIBUTING.md
+[gh-issue]: https://github.com/phughesmcr/js-template/issues/new/choose
+[gh-bug]: https://github.com/phughesmcr/js-template/issues/new?assignees=&labels=Issue-Bug&template=bug_report.md&title=
+[gh-feature]: https://github.com/phughesmcr/js-template/issues/new?assignees=&labels=Issue-Feature&template=Feature_Request.md&title=
+[contributor]: https://github.com/phughesmcr/js-template/blob/main/CONTRIBUTING.md
